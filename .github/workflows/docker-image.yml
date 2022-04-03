@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -d
+        run: docker-compose up -d --build
       - name: Test
         run: docker exec -it web bash -c "pytest -vv tests" && docker exec web bash -c "echo $?"
   build:
