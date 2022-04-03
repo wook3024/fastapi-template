@@ -18,9 +18,8 @@ jobs:
         run: docker-compose up -d --build
       - name: Generate coverage report
         run: |
-          python -m pip install pip-tools==6.5.1
-          pip-sync requirements/dev.txt
-          pytest --cov=./ --cov-report=xml
+          docker exec -u 0 web bash -c "pytest --cov=./ --cov-report=xml" && docker exec web bash -c "echo $?"
+          docker cp web:/workspace/coverage.xml .
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
