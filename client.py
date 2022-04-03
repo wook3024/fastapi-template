@@ -1,16 +1,15 @@
 import argparse
 
+from alive_progress import alive_bar
 from httpx import Client
 from rich.console import Console
-from alive_progress import alive_bar
-
 
 console = Console()
 
 
 def run():
     with Client() as client:
-        response = client.post(url="http://localhost:8000/livez")
+        response = client.get(url="http://localhost:8000/livez")
     console.log("Status code: {}".format(response.status_code))
 
 
