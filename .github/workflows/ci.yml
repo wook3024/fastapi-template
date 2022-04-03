@@ -18,6 +18,11 @@ jobs:
         run: docker-compose up -d --build
       - name: Test
         run: docker exec web bash -c "pytest -vv tests" && docker exec web bash -c "echo $?"
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
   build:
     runs-on: ubuntu-latest
     steps:
